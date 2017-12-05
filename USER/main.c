@@ -9,7 +9,7 @@
 #include "can.h"
 #include "wdg.h"
 float adc_x,adc_y,adc_z;
-void yaogan_fenxi(void);
+void yaokong_fenxi(void);
 float flagX,flagY,flagZ;
 u16 anjian_temp;
 int main(void)
@@ -26,19 +26,19 @@ int main(void)
 	Init_LEDpin();
 	IWDG_Init(4,625);    //与分频数为64,重载值为625,溢出时间为1s
 	CAN_Mode_Init(CAN_SJW_1tq,CAN_BS2_8tq,CAN_BS1_9tq,4,0);
-	yaogan_fenxi();
+	yaokong_fenxi();
 	cansend[3] = 0;//清除复位标志
 	while(1)
 	{
-		yaogan_fenxi();			
+		yaokong_fenxi();			
 		i++;
-		if(i==50)
+		if(i==5)
 		{
 			IWDG_Feed();
 			LED_CPU = ~LED_CPU;
 			i=0;
 		}
-		delay_ms(10);
+		delay_ms(100);
 	}
 }
 //Uart1_Send[0]	方向
@@ -50,7 +50,7 @@ int main(void)
 //Uart1_Send[6]	快速/慢速
 //Uart1_Send[7]	起升
 
-void yaogan_fenxi()
+void yaokong_fenxi()
 {
 	char x[100],y[100],z[100];
 	float max=145.0,min=105.0;
